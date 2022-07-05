@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Spinner from "./Spinner";
 import UsersList from "./UsersList";
 
 const App = () => {
@@ -10,7 +11,6 @@ const App = () => {
       const { users } = await resp.json();
       setUsers(users);
     };
-
     fetchUsers();
   }, []);
   return (
@@ -20,7 +20,7 @@ const App = () => {
         className="filterable-search border border-slate-600 rounded p-2 mb-4 w-full"
         placeholder="Search for a user"
       />
-      <UsersList users={users} />
+      {users.length ? <UsersList users={users} /> : <Spinner />}
     </div>
   );
 };
