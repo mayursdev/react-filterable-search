@@ -1,10 +1,13 @@
 import React from "react";
 import UserCard from "./UserCard";
 
-const UsersList = () => {
+const UsersList = (props) => {
+  const { users } = props;
   return (
     <div className="user-list">
-      <UserCard />
+      {users.map((user) => (
+        <UserCard user={user} key={user.id} />
+      ))}
     </div>
   );
 };

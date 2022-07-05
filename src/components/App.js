@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UsersList from "./UsersList";
 
 const App = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const resp = await fetch("https://dummyjson.com/users");
+      const { users } = await resp.json();
+      setUsers(users);
+    };
+
+    fetchUsers();
+  }, []);
   return (
     <div className="container mx-auto m-6">
       <input
@@ -9,7 +20,7 @@ const App = () => {
         className="filterable-search border border-slate-600 rounded p-2 mb-4 w-full"
         placeholder="Search for a user"
       />
-      <UsersList />
+      <UsersList users={users} />
     </div>
   );
 };
